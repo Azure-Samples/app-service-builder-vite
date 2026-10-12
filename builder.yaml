@@ -4,4 +4,3 @@ components:
     platform: nodejs
     platformVersion: "24"
     output: dist
-    path: /

@@ -71,8 +71,10 @@ components:
     platform: nodejs
     platformVersion: "24"
     output: dist
-    path: /
 ```
+
+For a single component, the repository root is the default source path, so
+`path: /` is not required.
 
 Node.js is the **build toolchain**, not a deployed application server. The Vite
 build produces `dist/index.html`, bundled JavaScript under `dist/assets/`, and
