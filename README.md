@@ -20,12 +20,6 @@ has not been validated.
 Vite **7.3.6** and TypeScript **5.9.3** are pinned. Keep `package-lock.json` and
 use `npm ci` rather than updating dependencies as part of setup.
 
-**Dependency limitation:** the pinned build-tool dependency `source-map-js` 1.2.1
-is affected by [GHSA-68fv-2mgg-jv7q](https://github.com/advisories/GHSA-68fv-2mgg-jv7q),
-a high-severity denial-of-service advisory. These development dependencies run
-during builds; `node_modules` is not deployed. Do not use this sample for
-production without reviewing and addressing dependency advisories.
-
 ## Run locally
 
 Fork this repository, then clone your fork:
