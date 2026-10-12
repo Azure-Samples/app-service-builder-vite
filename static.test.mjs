@@ -3,6 +3,7 @@ import { spawn } from 'node:child_process';
 import { readdir, readFile } from 'node:fs/promises';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
+import { stripVTControlCharacters } from 'node:util';
 
 test('built static site serves its root, assets, and health check', { timeout: 15000 }, async (t) => {
   const entries = await readdir(new URL('./dist/', import.meta.url));
@@ -37,7 +38,7 @@ test('built static site serves its root, assets, and health check', { timeout: 1
     preview.stderr.on('data', (chunk) => { output += chunk.toString(); });
     preview.stdout.on('data', (chunk) => {
       output += chunk.toString();
-      const url = output.match(/http:\/\/127\.0\.0\.1:\d+\//)?.[0];
+      const url = stripVTControlCharacters(output).match(/http:\/\/127\.0\.0\.1:\d+\//)?.[0];
       if (url) finish(null, url);
     });
   });
