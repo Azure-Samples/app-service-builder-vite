@@ -5,6 +5,16 @@ import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { stripVTControlCharacters } from 'node:util';
 
+test('single static component uses the default repository root path', async () => {
+  assert.equal(await readFile(new URL('./builder.yaml', import.meta.url), 'utf8'), `components:
+  - name: site
+    role: static
+    platform: nodejs
+    platformVersion: "24"
+    output: dist
+`);
+});
+
 test('built static site serves its root, assets, and health check', { timeout: 15000 }, async (t) => {
   const entries = await readdir(new URL('./dist/', import.meta.url));
   assert.deepEqual(entries.sort(), ['assets', 'health', 'index.html']);
