@@ -58,7 +58,9 @@ test('built static site serves its root, assets, and health check', { timeout: 1
   assert.match(root.headers.get('content-type'), /text\/html/);
   const html = await root.text();
   assert.match(html, /<h1>App Service Builder \/ vite-static<\/h1>/);
-  assert.match(html, /<p id="greeting"><\/p>/);
+  assert.match(html, /<p id="greeting" aria-live="polite"><\/p>/);
+  assert.match(html, /href="\/health"/);
+  assert.match(html, /href="#main"/);
   assert.doesNotMatch(html, /\/src\/|node_modules/);
 
   const assets = [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map((match) => match[1]);
@@ -71,6 +73,13 @@ test('built static site serves its root, assets, and health check', { timeout: 1
     const script = await response.text();
     assert.match(script, /\.textContent=/);
   }
+
+  const styles = [...html.matchAll(/<link\b[^>]*\bhref="([^"]+\.css)"/g)].map((match) => match[1]);
+  assert.equal(styles.length, 1);
+  const stylesheet = await fetch(new URL(styles[0], origin));
+  assert.equal(stylesheet.status, 200);
+  assert.match(stylesheet.headers.get('content-type'), /text\/css/);
+  assert.match(await stylesheet.text(), /focus-visible/);
 
   const health = await fetch(new URL('/health', origin));
   assert.equal(health.status, 200);

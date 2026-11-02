@@ -3,7 +3,10 @@
 A small TypeScript frontend built with Vite and deployed as static files with
 [App Service Builder](https://builderapps.azure.com/docs/). The page displays
 `App Service Builder / vite-static`, a configurable greeting, and a health-check
-link. There is no backend, framework dependency, or hosted Vite development server.
+link. Its responsive coral-and-white showcase includes a decorative TypeScript
+code preview that reflects the configured greeting, documentation links, and
+keyboard-visible focus states. All styling is local; no fonts or images are
+downloaded at runtime. There is no backend, framework dependency, or hosted Vite development server.
 
 **App Service Builder is in Private Preview for development and testing.** Access
 to an enabled subscription and supported preview location is required. This
